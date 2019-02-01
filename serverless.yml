@@ -1,0 +1,109 @@
+## The name of the service to be referenced in AWS.
+## Change this when the project is created.
+service:
+  name: serverless-project
+
+frameworkVersion: ">=1.0.0 <2.0.0"
+
+package:
+  individually: true
+  include:
+    - src/**/*.js
+    - src/**/*.map.js
+  exclude:
+    - src/**/*.test.js
+    - node_modules/aws-sdk/**
+    - coverage/**
+
+plugins:
+  - serverless-webpack
+  - serverless-offline
+
+custom:
+  apiVersion: v1
+  webpack:
+    includeModules:
+      forceExclude:
+        - aws-sdk
+
+  ## Env variables
+  local:
+    DEBUG: 'serverless*'
+    stage: local
+    enableDomain: true
+
+  dev:
+    DEBUG: 'serverless*'
+    stage: dev
+    enableDomain: true
+
+  staging:
+    DEBUG: 'serverless*'
+    stage: staging
+    enableDomain: true
+
+  prod_us:
+    DEBUG: 'serverless*'
+    stage: prod
+    enableDomain: true
+
+  region: ${opt:region}
+  stage: ${self:custom.${opt:target}.stage}
+
+  serverless-offline:
+    host: 127.0.0.1
+    port: 50512
+
+provider:
+  name: aws
+  runtime: ${env:NODE_RUNTIME, 'nodejs8.10'}
+  region: ${opt:region}
+
+  ## Lambda timeout options. This can be boosted to 5 min max.
+  timeout: 29
+  ## Lambda memory size
+  memorySize: 256
+
+  ## The role which this lambda will use when deployed.
+  ## Will use default for now
+  role: default
+  ## The AWS profile to be accessed during meta-deta lookup. Should match your AWS_CLI profile.
+  profile: 'node'
+
+  stage: ${self:custom.stage}
+  deploymentBucket:
+    name: everlook-${self:custom.stage}-continuous-delivery
+    serverSideEncryption: AES256
+  environment:
+    STAGE: ${self:custom.stage}
+    DEBUG: ${self:custom.${self:custom.stage}.DEBUG, ''}
+
+  apiKeys:
+    - ${self:service}-${self:custom.stage}-apikey
+
+functions:
+  ## This will be the name of the lambda in AWS
+  test-service:
+    ## Describes where this function lives in the pwd
+    handler: src/functions/test-service/index.handler
+    ## The name of this lambda function
+    name: ${self:custom.apiVersion}-${self:service}-test-service
+
+    ## env variables to be injected into process.env for each lambda function
+    environment:
+      DEBUG: ${self:custom.${self:custom.stage}.DEBUG}
+
+    events:
+      - http:
+          path: /test
+          method: post
+          cors: true
+          private: true
+
+resources:
+  # This is used to override the default naming conventions
+  Resources:
+    # ApiGatewayRestApi:
+    #   Type: AWS::ApiGateway::RestApi
+    #   Properties:
+    #     Name: ${self:custom.apiVersion}-${self:service}
