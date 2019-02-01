@@ -5,7 +5,7 @@
     "node": true
   },
   "extends": [
-    "aibnb"
+    "airbnb"
   ],
   "parser": "babel-eslint",
   "rules": {
