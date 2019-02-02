@@ -23,7 +23,7 @@
   "scripts": {
     "lint": "npx eslint ./src --fix",
     "coverage": "npm run test -- --coverage",
-    "build": "rm -rf dist && npx serverless --region=us-east-1 package",
+    "build": "rm -rf dist && npx serverless --target=dev --region=us-east-1 package",
     "open:coverage": "open ./coverage/lcov-report/index.html",
     "start": "AWS_PROFILE=node npx serverless offline --target=local --region=us-east-1 start",
     "test": "DEBUG=serverless:* IS_OFFLINE=true NODE_ENV=test npx jest"
