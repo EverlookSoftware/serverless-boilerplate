@@ -3,6 +3,7 @@ module.exports = {
     '@babel/preset-env',
   ],
   'plugins': [
+    'lodash',
     'transform-promise-to-bluebird',
   ],
 };
