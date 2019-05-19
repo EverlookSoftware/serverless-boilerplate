@@ -72,7 +72,7 @@ provider:
   profile: 'default'
 
   stage: ${self:custom.stage}
-  role: arn:aws:iam::216913161272:role/nomad-serverless-users-iam
+  role: THE-ARN-OF-YOUR-LAMBDA-IAM-ROLE
   deploymentBucket:
     name: everlook-${self:custom.stage}-continuous-delivery
     serverSideEncryption: AES256
