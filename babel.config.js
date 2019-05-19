@@ -2,8 +2,9 @@ module.exports = {
   presets: [
     '@babel/preset-env',
   ],
-  'plugins': [
+  plugins: [
     'lodash',
     'transform-promise-to-bluebird',
+    '@babel/plugin-transform-runtime',
   ],
 };

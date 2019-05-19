@@ -1,7 +1,7 @@
 ## The name of the service to be referenced in AWS.
 ## Change this when the project is created.
 service:
-  name: serverless-project
+  name: change-the-name-of-this-variable-to-your-service
 
 frameworkVersion: ">=1.0.0 <2.0.0"
 
@@ -31,21 +31,25 @@ custom:
     DEBUG: 'serverless*'
     stage: local
     enableDomain: true
+    DYNAMO_TABLE_NAME: ''
 
   dev:
     DEBUG: 'serverless*'
     stage: dev
     enableDomain: true
+    DYNAMO_TABLE_NAME: ''
 
   staging:
     DEBUG: 'serverless*'
     stage: staging
     enableDomain: true
+    DYNAMO_TABLE_NAME: ''
 
   prod_us:
     DEBUG: 'serverless*'
     stage: prod
     enableDomain: true
+    DYNAMO_TABLE_NAME: ''
 
   region: ${opt:region}
   stage: ${self:custom.${opt:target}.stage}
@@ -64,39 +68,37 @@ provider:
   ## Lambda memory size
   memorySize: 256
 
-  ## The role which this lambda will use when deployed.
-  ## Will use default for now
-  role: default
   ## The AWS profile to be accessed during meta-deta lookup. Should match your AWS_CLI profile.
-  profile: 'node'
+  profile: 'default'
 
   stage: ${self:custom.stage}
+  role: arn:aws:iam::216913161272:role/nomad-serverless-users-iam
   deploymentBucket:
     name: everlook-${self:custom.stage}-continuous-delivery
     serverSideEncryption: AES256
   environment:
     STAGE: ${self:custom.stage}
     DEBUG: ${self:custom.${self:custom.stage}.DEBUG, ''}
+    DYNAMO_TABLE_NAME: ${self:custom.${self:custom.stage}.DYNAMO_TABLE_NAME, ''}
 
   apiKeys:
     - ${self:service}-${self:custom.stage}-apikey
 
 functions:
   ## This will be the name of the lambda in AWS
-  test-service:
+  api:
     ## Describes where this function lives in the pwd
-    handler: src/functions/test-service/index.handler
+    handler: src/lambda.handler
     ## The name of this lambda function
-    name: ${self:custom.apiVersion}-${self:service}-test-service
-
+    name: ${self:custom.apiVersion}-${self:service}
     ## env variables to be injected into process.env for each lambda function
     environment:
       DEBUG: ${self:custom.${self:custom.stage}.DEBUG}
 
     events:
       - http:
-          path: /test
-          method: post
+          path: /{proxy+}
+          method: ANY
           cors: true
           private: true
 
