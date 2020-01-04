@@ -3,6 +3,9 @@ import express from 'express';
 import bodyParser from 'body-parser';
 import slsExpressMiddleware from 'aws-serverless-express/middleware';
 
+import controllerA from '../functions/endpoint_a';
+import controllerB from '../functions/endpoint_b';
+
 const Router = express.Router();
 
 /**
@@ -14,14 +17,15 @@ const app = express();
  * Middleware
  */
 app.use(cors());
-app.use(bodyParser.json());
 app.use(slsExpressMiddleware.eventContext());
-app.use(bodyParser.urlencoded({ extended: true }));
 
+app.use(bodyParser.json({ limit: '6mb', extended: true }));
+app.use(bodyParser.urlencoded({ limit: '6mb', extended: true }));
 /**
  * ROUTES
  */
-// Router.post('/users', addSingleUser);
+Router.get('/endpoint-a', controllerA);
+Router.get('/endpoint-b', controllerB);
 
 /**
  * Apply Router

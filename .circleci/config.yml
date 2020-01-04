@@ -1,0 +1,16 @@
+version: 2
+jobs:
+  build:
+    docker:
+      - image: travnels/circleci-nodejs-awscli:latest
+
+    working_directory: ~/repo
+
+    steps:
+      - checkout
+      - run: chmod +x ./scripts/deploy.sh
+      - run: npm install
+
+      - run: npm run test
+      - run: npm run lint
+      - run: ./scripts/deploy.sh

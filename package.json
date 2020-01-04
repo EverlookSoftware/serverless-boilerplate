@@ -8,6 +8,7 @@
     "@babel/core": "^7.2.2",
     "@babel/plugin-transform-runtime": "^7.4.4",
     "@babel/preset-env": "^7.3.1",
+    "aws-sdk": "^2.597.0",
     "babel-eslint": "^10.0.1",
     "babel-loader": "^8.0.5",
     "babel-plugin-lodash": "^3.3.4",
@@ -19,8 +20,9 @@
     "eslint-plugin-jsx-a11y": "^6.2.1",
     "eslint-plugin-react": "^7.13.0",
     "lodash-webpack-plugin": "^0.11.5",
-    "serverless": "^1.36.3",
-    "serverless-offline": "^4.2.1",
+    "serverless": "1.36.3",
+    "serverless-offline": "4.2.1",
+    "serverless-plugin-warmup": "^4.7.1-rc.1",
     "serverless-webpack": "^5.2.0",
     "webpack": "^4.29.0",
     "webpack-node-externals": "^1.7.2"
@@ -29,14 +31,15 @@
     "@babel/runtime": "^7.4.4",
     "@hapi/joi": "^15.0.3",
     "aws-serverless-express": "^3.3.6",
-    "bcryptjs": "^2.4.3",
     "body-parser": "^1.19.0",
+    "cookie-parser": "^1.4.4",
     "cors": "^2.8.5",
     "debug": "^4.1.1",
+    "dotenv": "^8.0.0",
     "dynamoose": "^1.7.2",
     "express": "^4.16.4",
     "lodash": "^4.17.11",
-    "uuid": "^3.3.2",
+    "uuid": "^3.3.3",
     "validatorjs": "^3.15.1"
   },
   "scripts": {
@@ -44,8 +47,9 @@
     "coverage": "npm run test -- --coverage",
     "build": "rm -rf dist && npx serverless --target=dev --region=us-east-1 package",
     "open:coverage": "open ./coverage/lcov-report/index.html",
-    "start": "AWS_PROFILE=node npx serverless offline --target=local --region=us-east-1 start",
-    "test": "DEBUG=serverless:* IS_OFFLINE=true NODE_ENV=test npx jest"
+    "start": "DEBUG=api* AWS_PROFILE=default npx serverless offline --target=local --region=us-east-1 start",
+    "test": "echo 'Nothing to see here'",
+    "deploy": "npm run build && AWS_PROFILE=default npx serverless --region=us-east-1 --target=dev deploy"
   },
   "author": "Brodey Newman",
   "license": "MIT"

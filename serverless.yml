@@ -66,7 +66,7 @@ provider:
   ## Lambda timeout options. This can be boosted to 5 min max.
   timeout: 29
   ## Lambda memory size
-  memorySize: 256
+  memorySize: 512
 
   ## The AWS profile to be accessed during meta-deta lookup. Should match your AWS_CLI profile.
   profile: 'default'
@@ -76,6 +76,9 @@ provider:
   deploymentBucket:
     name: everlook-${self:custom.stage}-continuous-delivery
     serverSideEncryption: AES256
+
+  # Add your above variables in each env to this environment section
+  # This gets piped into your app inside of process.env
   environment:
     STAGE: ${self:custom.stage}
     DEBUG: ${self:custom.${self:custom.stage}.DEBUG, ''}
@@ -90,7 +93,7 @@ functions:
     ## Describes where this function lives in the pwd
     handler: src/lambda.handler
     ## The name of this lambda function
-    name: ${self:custom.apiVersion}-${self:service}
+    name: ${self:custom.apiVersion}-${self:service}-${self:custom.stage}
     ## env variables to be injected into process.env for each lambda function
     environment:
       DEBUG: ${self:custom.${self:custom.stage}.DEBUG}
