@@ -89,7 +89,6 @@ provider:
   # This gets piped into your app inside of process.env
   environment:
     STAGE: ${self:custom.stage}
-    AWS_PROFILE: 'default'
     DEBUG: ${self:custom.${self:custom.stage}.DEBUG, ''}
     DYNAMO_TABLE_NAME: ${self:custom.${self:custom.stage}.DYNAMO_TABLE_NAME, ''}
 
@@ -103,10 +102,6 @@ functions:
     handler: src/lambda.handler
     ## The name of this lambda function
     name: ${self:custom.apiVersion}-${self:service}-${self:custom.stage}
-    ## env variables to be injected into process.env for each lambda function
-    environment:
-      DEBUG: ${self:custom.${self:custom.stage}.DEBUG}
-
     events:
       - http:
           path: /{proxy+}

@@ -47,8 +47,8 @@
     "coverage": "npm run test -- --coverage",
     "build": "rm -rf dist && npx serverless --target=dev --region=us-east-1 package",
     "open:coverage": "open ./coverage/lcov-report/index.html",
-    "start": "npx serverless offline --target=local --region=us-east-1 start",
-    "test": "echo 'Add your test script here'",
+    "start": "DEBUG=api* AWS_PROFILE=default npx serverless offline --target=local --region=us-east-1 start",
+    "test": "echo 'Nothing to see here'",
     "deploy": "npm run build && AWS_PROFILE=default npx serverless --region=us-east-1 --target=dev deploy"
   },
   "author": "Brodey Newman",
