@@ -82,13 +82,14 @@ provider:
   stage: ${self:custom.stage}
   role: THE-ARN-OF-YOUR-LAMBDA-IAM-ROLE
   deploymentBucket:
-    name: everlook-${self:custom.stage}-continuous-delivery
+    name: YOUR_PROJECT-${self:custom.stage}-continuous-delivery
     serverSideEncryption: AES256
 
   # Add your above variables in each env to this environment section
   # This gets piped into your app inside of process.env
   environment:
     STAGE: ${self:custom.stage}
+    AWS_PROFILE: 'default'
     DEBUG: ${self:custom.${self:custom.stage}.DEBUG, ''}
     DYNAMO_TABLE_NAME: ${self:custom.${self:custom.stage}.DYNAMO_TABLE_NAME, ''}
 

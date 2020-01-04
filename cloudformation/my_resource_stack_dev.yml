@@ -52,7 +52,7 @@ Resources:
       # NOTE: you have to describe the attribute names that your indexes use
       # above in the 'AttributeDefinitions' or else this will fail.
       GlobalSecondaryIndexes:
-        - IndexName: "location-status-index"
+        - IndexName: "my-secondary-index"
           KeySchema:
           - AttributeName: "foo"
             KeyType: "HASH"
