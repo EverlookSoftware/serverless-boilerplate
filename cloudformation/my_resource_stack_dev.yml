@@ -1,0 +1,74 @@
+---
+AWSTemplateFormatVersion: '2010-09-09'
+Description: MY_RESOURCE_STACK
+
+Parameters:
+  ThisServiceIamStackName:
+    Type: String
+    Default: my-resource-stack
+  Environment: 
+    Type: String
+    Default: dev
+  ServiceName:
+    Type: String
+    Default: whatever-you-want
+
+Resources:
+  # Log Group within cloudwatch
+  LogGroup:
+    Type: "AWS::Logs::LogGroup"
+    Properties:
+      LogGroupName: !Sub "${ServiceName}-${Environment}"
+      RetentionInDays: 30
+
+  DynamoDBTable0:
+    Type: AWS::DynamoDB::Table
+
+    # Keeps your table if you accidentally delete your cloudformation
+    DeletionPolicy: Retain
+    Properties:
+      # Table name.. self explanatory
+      TableName: !Sub "${ServiceName}-postings-${Environment}"
+
+      # For backups
+      PointInTimeRecoverySpecification:
+        PointInTimeRecoveryEnabled: true
+      
+      # Pay per request or'on demand' billing model
+      BillingMode: PAY_PER_REQUEST
+      AttributeDefinitions:
+        - AttributeName: "id" # Needed for your hash key
+          AttributeType: "S"
+        - AttributeName: "foo"
+          AttributeType: "S"
+        - AttributeName: "bar" # name of the attribute in the secondary index
+          AttributeType: "S" # string
+      KeySchema:
+        - AttributeName: "id"
+          KeyType: "HASH"
+
+      # Global Secondary Index definitions
+      #
+      # NOTE: you have to describe the attribute names that your indexes use
+      # above in the 'AttributeDefinitions' or else this will fail.
+      GlobalSecondaryIndexes:
+        - IndexName: "location-status-index"
+          KeySchema:
+          - AttributeName: "foo"
+            KeyType: "HASH"
+          - AttributeName: "bar"
+            KeyType: "RANGE"
+          Projection:
+            ProjectionType: "ALL"
+
+      # These tags are simply for tagging resources in aws.. not important.
+      Tags:
+        - Key: foo
+          Value: bar
+
+# Outputs so that you can reference the resource ARN's within other projects / configurations
+Outputs:
+  DynamoDBTable0Name:
+    Value: !Ref DynamoDBTable0
+  DynamoDBTable0Arn:
+    Value: !GetAtt DynamoDBTable0.Arn

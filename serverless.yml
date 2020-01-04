@@ -28,27 +28,35 @@ custom:
 
   ## Env variables
   local:
-    DEBUG: 'serverless*'
+    DEBUG: 'api*'
     stage: local
     enableDomain: true
+
+    # To refernce your dynamo table name within code
     DYNAMO_TABLE_NAME: ''
 
   dev:
-    DEBUG: 'serverless*'
+    DEBUG: 'api*'
     stage: dev
     enableDomain: true
+
+    # To refernce your dynamo table name within code
     DYNAMO_TABLE_NAME: ''
 
   staging:
-    DEBUG: 'serverless*'
+    DEBUG: 'api*'
     stage: staging
     enableDomain: true
+
+    # To refernce your dynamo table name within code
     DYNAMO_TABLE_NAME: ''
 
   prod_us:
-    DEBUG: 'serverless*'
+    DEBUG: 'api*'
     stage: prod
     enableDomain: true
+
+    # To refernce your dynamo table name within code
     DYNAMO_TABLE_NAME: ''
 
   region: ${opt:region}

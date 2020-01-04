@@ -1,5 +1,15 @@
+/**
+ * Just a list of helpful utilities when writing your code
+ */
+
 import _ from 'lodash';
+import debug from 'debug';
 import Validator from 'validatorjs';
+
+/**
+ * Simple logger.. suggest switching this for something more robust like bunyan.
+ */
+const log = debug('api:utils');
 
 /**
  * Throws an error with a given code & detail.
@@ -71,7 +81,7 @@ export const withErrorHandling = fn => async (req, res) => {
   try {
     await fn(req, res);
   } catch (e) {
-    console.log('An error occurred', e);
+    log('An error occurred', e);
 
     const code = e.code || 500;
 
