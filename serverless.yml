@@ -93,11 +93,9 @@ provider:
     DYNAMO_TABLE_NAME: ${self:custom.${self:custom.stage}.DYNAMO_TABLE_NAME, ''}
 
   #
-  #
   # NOTE: This will spit out an API key for this service.
   # Every request you make to this lambda will need a header of 'x-api-key'.
   # Otherwise, you will get 'forbidden'
-  #
   #
   apiKeys:
     - ${self:service}-${self:custom.stage}-apikey
