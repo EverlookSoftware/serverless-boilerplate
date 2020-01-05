@@ -2,18 +2,18 @@
 AWSTemplateFormatVersion: '2010-09-09'
 
 # Update this to your stack description
-Description: MY_RESOURCE_STACK
+Description: test-resources
 
 Parameters:
-  ThisServiceIamStackName:
+  Environment:
     Type: String
-    Default: my-resource-stack
-  Environment: 
-    Type: String
-    Default: dev
+    Default: prod
+
+  ## UPDATE THIS TO YOUR SERVICE NAME.
+  ## It's used below.
   ServiceName:
     Type: String
-    Default: whatever-you-want
+    Default: test
 
 Resources:
   # Log Group within cloudwatch

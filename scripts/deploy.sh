@@ -2,7 +2,7 @@
 
 # variables
 # CHANGE THIS TO YOUR STACK NAME
-STACK_NAME=MY_PROJECT_STACK_NAME
+STACK_NAME=test-stack-resources
 
 cat > ~/.aws/credentials << EOF1
 [default]

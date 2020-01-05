@@ -1,7 +1,7 @@
 ## The name of the service to be referenced in AWS.
 ## Change this when the project is created.
 service:
-  name: change-the-name-of-this-variable-to-your-service
+  name: test-project
 
 frameworkVersion: ">=1.0.0 <2.0.0"
 
@@ -68,7 +68,9 @@ custom:
 
 provider:
   name: aws
-  runtime: ${env:NODE_RUNTIME, 'nodejs12.0'}
+
+  # use node LTS
+  runtime: ${env:NODE_RUNTIME, 'nodejs12.x'}
   region: ${opt:region}
 
   ## Lambda timeout options. This can be boosted to 5 min max.
@@ -84,12 +86,12 @@ provider:
   # This is important... this specifies which role this lambda is associated with.
   # It gives this lambda all of the permissions it needs to run / access other resources in aws.
   # I suggest creating one in the IAM aws console that has admin access just to play around with in development.
-  role: THE-ARN-OF-YOUR-LAMBDA-IAM-ROLE
+  role: arn:aws:iam::216913161272:role/test-role
 
   # Where your deployment output lives.
   # You need create this in s3 before your deploy will work.
   deploymentBucket:
-    name: YOUR_PROJECT-${self:custom.stage}-continuous-delivery
+    name: test-${self:custom.stage}-continuous-delivery
     serverSideEncryption: AES256
 
   # Add your above variables in each env to this environment section
