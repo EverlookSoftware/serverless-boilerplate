@@ -96,6 +96,10 @@ You need to change the name of the stack definition & stack name in that file, a
 npm run deploy:local
 ```
 
+It will take a few minutes, but this process will bundle your project locally, and sync the files to AWS for you.
+
+This will mimic your dev environment.
+
 ## Test your lambdas
 
 After your local deploy runs, the configuration for your lambda should be outputted.
@@ -122,7 +126,7 @@ You can grab the endpoint and make a request to:
 POST https://foo.execute-api.us-east-1.amazonaws.com/dev/users
 ```
 
-**Make sure you include the `x-api-key` header with the API key above!**
+**Make sure you include the `x-api-key` header with the API key above.**
 
 You can also check the `Api-Gateway` console in AWS to see the lambdas that were created.
 
