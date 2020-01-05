@@ -12,6 +12,6 @@ import _ from 'lodash';
  * console.log(constants.DYNAMO_TABLE_NAME);
  */
 export default Object.freeze(_.defaults({}, process.env, {
-  // Example:
+  // Exmaple:
   // foo: 'bar,
 }));

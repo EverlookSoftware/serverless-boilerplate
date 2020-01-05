@@ -1,17 +1,19 @@
 ---
 AWSTemplateFormatVersion: '2010-09-09'
-Description: MY_RESOURCE_STACK
+
+# Update this to your stack description
+Description: test-resources
 
 Parameters:
-  ThisServiceIamStackName:
-    Type: String
-    Default: my-resource-stack
-  Environment: 
+  Environment:
     Type: String
     Default: dev
+
+  ## UPDATE THIS TO YOUR SERVICE NAME.
+  ## It's used below.
   ServiceName:
     Type: String
-    Default: whatever-you-want
+    Default: test
 
 Resources:
   # Log Group within cloudwatch
@@ -28,7 +30,7 @@ Resources:
     DeletionPolicy: Retain
     Properties:
       # Table name.. self explanatory
-      TableName: !Sub "${ServiceName}-postings-${Environment}"
+      TableName: !Sub "${ServiceName}-users-${Environment}"
 
       # For backups
       PointInTimeRecoverySpecification:

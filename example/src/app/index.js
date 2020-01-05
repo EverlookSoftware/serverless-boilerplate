@@ -3,8 +3,8 @@ import express from 'express';
 import bodyParser from 'body-parser';
 import slsExpressMiddleware from 'aws-serverless-express/middleware';
 
-import createUser from '../functions/users';
 import getSomething from '../functions/get-something';
+import createUser from '../functions/user';
 
 const Router = express.Router();
 

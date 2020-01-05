@@ -1,7 +1,7 @@
 ## The name of the service to be referenced in AWS.
 ## Change this when the project is created.
 service:
-  name: change-the-name-of-this-variable-to-your-service
+  name: test-project
 
 frameworkVersion: ">=1.0.0 <2.0.0"
 
@@ -14,9 +14,6 @@ package:
     - src/**/*.test.js
     - node_modules/aws-sdk/**
     - coverage/**
-
-    # just in case...
-    - example
 
 plugins:
   - serverless-webpack
@@ -89,7 +86,7 @@ provider:
   # This is important... this specifies which role this lambda is associated with.
   # It gives this lambda all of the permissions it needs to run / access other resources in aws.
   # I suggest creating one in the IAM aws console that has admin access just to play around with in development.
-  role: arn:aws:iam::{ACCT}:role/test-role
+  role: arn:aws:iam::MY_ACCT:role/test-role
 
   # Where your deployment output lives.
   # You need create this in s3 before your deploy will work.

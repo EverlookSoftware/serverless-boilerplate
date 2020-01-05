@@ -5,12 +5,12 @@ AWSTemplateFormatVersion: '2010-09-09'
 Description: MY_RESOURCE_STACK
 
 Parameters:
-  ThisServiceIamStackName:
-    Type: String
-    Default: my-resource-stack
   Environment: 
     Type: String
     Default: dev
+
+  ## UPDATE THIS TO YOUR SERVICE NAME.
+  ## It's used below.
   ServiceName:
     Type: String
     Default: whatever-you-want
