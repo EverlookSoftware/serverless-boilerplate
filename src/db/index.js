@@ -1,1 +1,1 @@
-export { default as Model } from './table';
+export { default as Model } from './your_table';

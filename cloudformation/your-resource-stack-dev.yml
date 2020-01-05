@@ -1,5 +1,7 @@
 ---
 AWSTemplateFormatVersion: '2010-09-09'
+
+# Update this to your stack description
 Description: MY_RESOURCE_STACK
 
 Parameters:
@@ -28,7 +30,7 @@ Resources:
     DeletionPolicy: Retain
     Properties:
       # Table name.. self explanatory
-      TableName: !Sub "${ServiceName}-postings-${Environment}"
+      TableName: !Sub "${ServiceName}-users-${Environment}"
 
       # For backups
       PointInTimeRecoverySpecification:

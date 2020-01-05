@@ -8,7 +8,8 @@ import app from './app';
 const server = awsExpress.createServer(app);
 
 /**
- * Adds the adapter for express
+ * Adds the adapter for express.
+ * This allows you to write 'express-like' syntax for your lambdas.
  * @param {Object} event - Lambda event object
  * @param {Object} context - Lambda context object
  * @returns {void}

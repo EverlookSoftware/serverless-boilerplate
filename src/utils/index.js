@@ -28,31 +28,34 @@ const throwErrorWithCode = ({ detail = '', type = 'Bad Request', code = 500 }) =
  * Throws a "Bad request" 400 error
  */
 export const throwHttpBadRequest = throwErrorWithCode({
-  detail: 'An error occurred while processing your request',
+  detail: 'An error occurred while processing your request.',
   code: 400,
-  type: 'Bad request.',
+  type: 'Bad request',
 });
 
 /**
  * Throws a 404 "Not Found" error.
  */
 export const throwHttpNotFound = throwErrorWithCode({
-  detail: 'An error occurred while processing your request',
+  detail: 'An error occurred while processing your request.',
   code: 404,
-  type: 'Entity not found.',
+  type: 'Entity not found',
 });
 
 /**
  * Throws a 409  "Already Exists" error.
  */
 export const throwHttpAlreadyExists = throwErrorWithCode({
-  detail: 'An error occurred while processing your request',
+  detail: 'An error occurred while processing your request.',
   code: 409,
-  type: 'Entity already exists.',
+  type: 'Entity already exists',
 });
 
 /**
  * Validates a request body by a given schema.
+ * Leverages 'validatorjs' to do validations.
+ * https://github.com/skaterdav85/validatorjs
+ *
  * @param {Object} schema - The schema object.
  * @returns {*} - Value from whatever is returned from fn
  */
@@ -74,6 +77,8 @@ export const validateBodyWithSchema = schema => fn => (req, res) => {
 
 /**
  * Catches an error up top and responds with appropriate error code & message.
+ * Formats the error response.
+ *
  * @param {Function} fn - The route controller to wrap & catch errors for.
  * @returns {Promise<void>} - Voided promise from async function
  */

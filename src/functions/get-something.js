@@ -15,8 +15,11 @@ import { withErrorHandling } from '../utils';
  */
 const log = debug('api:endpoint-a');
 
+/**
+ * Catches errors for you.
+ */
 export default withErrorHandling((req, res) => {
   log('Receiving request for lambda endpoint a');
 
-  res.json({ success: true, endpoint: 'a' });
+  res.json({ success: true });
 });
