@@ -71,6 +71,11 @@ STACK_NAME=MY_PROJECT_STACK_NAME
 
 ex: `foo-serverless-resources-dev.yml`
 
+## Update the cloudformation files with your stack information
+
+By default, there is a DynamoDB definition within the cloudformation template.
+You need to change the name of the stack definition & stack name in that file, as well as the Dynamo table name so that it matches your projects needs.
+
 ## Run your local test deployment
 
 ```
